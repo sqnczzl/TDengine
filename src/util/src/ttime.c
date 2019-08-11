@@ -56,7 +56,7 @@ int64_t taosGetTimestamp(int32_t precision) {
 
 int32_t taosParseTime(char* timestr, int64_t* time, int32_t len, int32_t timePrec) {
   /* parse datatime string in with tz */
-  if (strnchr(timestr, 'T', len) != NULL) {
+  if (strnchr(timestr, 'T', len, false) != NULL) {
     return parseTimeWithTz(timestr, time, timePrec);
   } else {
     return parseLocaltime(timestr, time, timePrec);
@@ -184,8 +184,12 @@ int32_t parseTimeWithTz(char* timestr, int64_t* time, int32_t timePrec) {
     return -1;
   }
 
-  /* mktime will be affected by TZ, set by using taos_options */
+/* mktime will be affected by TZ, set by using taos_options */
+#ifdef WINDOWS
+  int64_t seconds = gmtime(&tm); 
+#else
   int64_t seconds = timegm(&tm);
+#endif
 
   int64_t fraction = 0;
   str = forwardToTimeStringEnd(timestr);

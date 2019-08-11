@@ -139,7 +139,7 @@ char *tsError[] = {"success",
                    "unexpected response",
                    "invalid response type",
                    "no resource",
-                   "invalid time stamp",         // 15
+                   "server-client date time unsynced",         // 15
                    "mismatched meter ID",
                    "transcation not finished",
                    "not online",
@@ -230,5 +230,8 @@ char *tsError[] = {"success",
                    "session not ready",
                    "batch size too big",
                    "timestamp out of range",
-                   "invalid query message"
+                   "invalid query message",
+                   "timestamp disordered in cache block",
+                   "timestamp disordered in file block",
+                   "invalid commit log"
 };

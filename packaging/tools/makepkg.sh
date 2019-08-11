@@ -19,7 +19,7 @@ package_name='linux'
 install_dir="${release_dir}/taos-${version}-${package_name}-$(echo ${build_time}| tr ': ' -)"
 
 # Directories and files.
-bin_files="${build_dir}/bin/taosd ${build_dir}/bin/taos ${build_dir}/bin/taosdump ${script_dir}/remove.sh"
+bin_files="${build_dir}/bin/taosd ${build_dir}/bin/taos ${build_dir}/bin/taosdemo ${build_dir}/bin/taosdump ${script_dir}/remove.sh"
 versioninfo=$(${script_dir}/get_version.sh)
 lib_files="${build_dir}/lib/libtaos.so.${versioninfo}"
 header_files="${code_dir}/inc/taos.h"
@@ -40,7 +40,7 @@ mkdir -p ${install_dir}
 mkdir -p ${install_dir}/inc && cp ${header_files} ${install_dir}/inc
 mkdir -p ${install_dir}/cfg && cp ${cfg_files} ${install_dir}/cfg
 mkdir -p ${install_dir}/bin && cp ${bin_files} ${install_dir}/bin && chmod a+x ${install_dir}/bin/*
-mkdir -p ${install_dir}/init.d     && cp ${init_files} ${install_dir}/init.d
+mkdir -p ${install_dir}/init.d    && cp ${init_files} ${install_dir}/init.d
 
 cd ${install_dir}
 tar -zcv -f taos.tar.gz * --remove-files || : 
@@ -66,8 +66,8 @@ connector_dir="${code_dir}/connector"
 mkdir -p ${install_dir}/connector
 cp -r ${connector_dir}/grafana ${install_dir}/connector/
 cp -r ${connector_dir}/python  ${install_dir}/connector/
-cp -r ${connector_dir}/go ${install_dir}/connector
-cp ${build_dir}/lib/*.jar ${install_dir}/connector
+cp -r ${connector_dir}/go      ${install_dir}/connector
+cp ${build_dir}/lib/*.jar      ${install_dir}/connector
 
 
 # Copy release note
